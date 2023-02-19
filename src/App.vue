@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <el-button type="primary">Primary</el-button>
+    <router-view></router-view>
   </div>
 </template>
 

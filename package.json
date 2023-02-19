@@ -16,12 +16,14 @@
   },
   "dependencies": {
     "element-plus": "^2.2.31",
-    "vue": "^3.2.45"
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-angular": "^17.0.3",
     "@commitlint/cz-commitlint": "^17.0.3",
+    "@types/node": "^18.14.0",
     "@typescript-eslint/parser": "^5.30.7",
     "@vitejs/plugin-vue": "^4.0.0",
     "commitizen": "^4.2.4",

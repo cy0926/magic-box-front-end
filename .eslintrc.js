@@ -16,6 +16,7 @@ module.exports = {
     'vue/order-in-components': 'off',
     'vue/html-self-closing': 'off',
     'vue/require-default-prop': 'off',
+    'vue/multi-word-component-names': 'off',
     'vue/max-attributes-per-line': [
       0,
       {
