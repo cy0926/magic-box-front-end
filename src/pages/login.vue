@@ -42,6 +42,12 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
+// import { login } from '@/api/login'
+import { ElNotification } from 'element-plus'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 const form = reactive({
   username: '',
   password: ''
@@ -64,8 +70,40 @@ const onsubmit = () => {
     console.log(valid)
     if (!valid) {
       return false
+    }
+    // else {
+    //   login(form.username, form.password) // 登录功能实现，验证通过之后，可以对接真实接口
+    //     .then((res) => {
+    //       // console.log(res)
+    //       router.push('/')
+    //       ElNotification({
+    //         message: res.response.data.data,
+    //         type: 'success'
+    //       })
+    //     })
+    //     .catch((err) => {
+    //       ElNotification({
+    //         message: err.response.data.msg || '请求失败',
+    //         type: 'error'
+    //       })
+    //     })
+    // }
+
+    // 写的伪登录，不掉接口，等有真实接口之后，再替换为下面的login()
+    if (form.username == 'admin' && form.password == 'admin') {
+      ElNotification({
+        message: '登录成功',
+        type: 'success',
+        duration: 1000
+      })
+      router.push('/')
     } else {
-      console.log('验证通过')
+      // 登录失败
+      ElNotification({
+        message: '用户名或密码错误' || '请求失败',
+        type: 'error',
+        duration: 1000
+      })
     }
   })
 }
