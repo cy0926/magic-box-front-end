@@ -92,6 +92,13 @@ const onsubmit = () => {
   })
 }
 
+//监听回车事件
+function onKeyUp(e) {
+  if (e.key == 'Enter') {
+    onsubmit()
+  }
+}
+
 //添加键盘监听
 onMounted(() => {
   document.addEventListener('keyup', onKeyUp)
@@ -101,13 +108,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('keyup', onKeyUp)
 })
-
-//监听回车事件
-function onKeyUp(e) {
-  if (e.key == 'Enter') {
-    onsubmit()
-  }
-}
 </script>
 
 <style scoped>
