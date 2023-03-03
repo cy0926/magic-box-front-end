@@ -41,9 +41,9 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
 // import { login } from '@/api/login'
-import { ElNotification } from 'element-plus'
+import { toast } from '@/composables/util'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -71,41 +71,42 @@ const onsubmit = () => {
     if (!valid) {
       return false
     }
-    // else {
+
     //   login(form.username, form.password) // 登录功能实现，验证通过之后，可以对接真实接口
     //     .then((res) => {
     //       // console.log(res)
     //       router.push('/')
-    //       ElNotification({
-    //         message: res.response.data.data,
-    //         type: 'success'
-    //       })
+    //      toast('登录成功')
     //     })
     //     .catch((err) => {
-    //       ElNotification({
-    //         message: err.response.data.msg || '请求失败',
-    //         type: 'error'
-    //       })
+    //       toast('用户名或密码错误' || '请求失败', 'error')
     //     })
-    // }
-
     // 写的伪登录，不掉接口，等有真实接口之后，再替换为下面的login()
     if (form.username == 'admin' && form.password == 'admin') {
-      ElNotification({
-        message: '登录成功',
-        type: 'success',
-        duration: 1000
-      })
+      toast('登录成功')
       router.push('/')
     } else {
       // 登录失败
-      ElNotification({
-        message: '用户名或密码错误' || '请求失败',
-        type: 'error',
-        duration: 1000
-      })
+      toast('用户名或密码错误' || '请求失败', 'error')
     }
   })
+}
+
+//添加键盘监听
+onMounted(() => {
+  document.addEventListener('keyup', onKeyUp)
+})
+
+//移除键盘监听
+onBeforeUnmount(() => {
+  document.removeEventListener('keyup', onKeyUp)
+})
+
+//监听回车事件
+function onKeyUp(e) {
+  if (e.key == 'Enter') {
+    onsubmit()
+  }
 }
 </script>
 
