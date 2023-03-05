@@ -1,10 +1,13 @@
 import router from '@/router'
 import { getToken } from '@/composables/auth'
-import { toast } from '@/composables/util'
+import { toast, showFullLoading, hideFullLoading } from '@/composables/util'
 import store from './store'
 
 //全局前置守卫
 router.beforeEach(async (to, from, next) => {
+  // 显示loading
+  showFullLoading()
+
   const token = getToken()
 
   //没有登录，强制跳转回登录页
@@ -23,5 +26,12 @@ router.beforeEach(async (to, from, next) => {
     await store.dispatch('getinfo')
   }
 
+  //设置页面标题
+  // console.log(to.meta.title)
+  const title = to.meta.title ? to.meta.title : ''
+  document.title = title
   next()
 })
+
+// 全局后置守卫
+router.afterEach((to, from) => hideFullLoading())
