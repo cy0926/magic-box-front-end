@@ -33,7 +33,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button round color="#626aef" class="w-[250px]" type="primary" @click="onsubmit">登录</el-button>
+          <el-button round color="#626aef" class="w-[250px]" type="primary" :loading="loading" @click="onsubmit">登录</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -43,9 +43,9 @@
 <script setup>
 import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
 // import { login } from '@/api/login'
+import { setToken } from '@/composables/auth'
 import { toast } from '@/composables/util'
 import { useRouter } from 'vue-router'
-
 const router = useRouter()
 
 const form = reactive({
@@ -64,26 +64,33 @@ const rules = {
   ]
 }
 const formRef = ref(null)
-
+const loading = ref(false)
 const onsubmit = () => {
   formRef.value.validate((valid) => {
     console.log(valid)
     if (!valid) {
       return false
     }
+    // 登录功能实现，验证通过之后，可以对接真实接口
+    // loading.value = true
+    // login(form.username, form.password)
+    //   .then((res) => {
+    //     // console.log(res)
+    //     toast('登录成功')
+    //存储token
+    //     setToken(res.token)
+    //     router.push('/')
 
-    //   login(form.username, form.password) // 登录功能实现，验证通过之后，可以对接真实接口
-    //     .then((res) => {
-    //       // console.log(res)
-    //       router.push('/')
-    //      toast('登录成功')
-    //     })
-    //     .catch((err) => {
-    //       toast('用户名或密码错误' || '请求失败', 'error')
-    //     })
-    // 写的伪登录，不掉接口，等有真实接口之后，再替换为下面的login()
+    //   })
+    //   .finally(() => {
+    //     loading.value = false
+    //   })
+    // 写的伪登录，不掉接口，等有真实接口之后，再替换为上面的login()
     if (form.username == 'admin' && form.password == 'admin') {
+      //存储token
+      setToken('cloud-test-0000')
       toast('登录成功')
+      //将用户名存储到store.user里
       router.push('/')
     } else {
       // 登录失败
