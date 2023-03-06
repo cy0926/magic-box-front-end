@@ -33,7 +33,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button round color="#626aef" class="w-[250px]" type="primary" :loading="loading" @click="onsubmit">登录</el-button>
+          <el-button round color="#1e90ff" class="w-[250px]" type="primary" :loading="loading" @click="onsubmit">登录</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -119,7 +119,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .login-container {
-  @apply min-h-screen bg-indigo-500;
+  @apply min-h-screen bg-blue-400;
 }
 .login-container .left,
 .login-container .right {
