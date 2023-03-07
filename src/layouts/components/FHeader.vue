@@ -4,11 +4,23 @@
       <el-icon class="mr-2"><eleme-filled /></el-icon>
       Magic box
     </span>
-    <el-icon class="icon-btn"><Fold /></el-icon>
-    <el-icon class="icon-btn"><Refresh /></el-icon>
+    <el-icon class="icon-btn"> <Fold /></el-icon>
+    <el-tooltip effect="dark" content="刷新" placement="bottom">
+      <el-icon class="icon-btn" @click="handleRefresh"><Refresh /></el-icon>
+    </el-tooltip>
+
     <div class="ml-auto items-center flex items-center">
-      <el-icon class="icon-btn"><FullScreen /></el-icon>
-      <el-dropdown class="f-dropdown" @command="handelCommand">
+      <el-tooltip v-if="!isFullscreen" effect="dark" content="全屏" placement="bottom">
+        <el-icon class="icon-btn" @click="toggle">
+          <FullScreen />
+        </el-icon>
+      </el-tooltip>
+      <el-tooltip v-else effect="dark" content="退出全屏" placement="bottom">
+        <el-icon class="icon-btn" @click="toggle">
+          <Aim />
+        </el-icon>
+      </el-tooltip>
+      <el-dropdown class="f-dropdown" @command="handleCommand">
         <span class="flex items-center text-light-50">
           <el-avatar class="mr-2" :size="25" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
           {{ $store.state.user.username }}
@@ -31,17 +43,26 @@
 import { useRouter } from 'vue-router'
 import { showModel, toast } from '@/composables/util'
 import { useStore } from 'vuex'
+import { useFullscreen } from '@vueuse/core'
+
 // import { logout } from '@/api/login'
+const {
+  isFullscreen, // 是否全屏
+  toggle // 切换全屏
+} = useFullscreen()
 const router = useRouter()
 const store = useStore()
 
-const handelCommand = (c) => {
+const handleCommand = (c) => {
   switch (c) {
     case 'logout':
       handleLogout()
       break
   }
 }
+
+//  刷新
+const handleRefresh = () => location.reload()
 
 function handleLogout() {
   showModel('是否要退出登录？').then(() => {
