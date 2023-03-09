@@ -1,5 +1,5 @@
 <template>
-  <h1>这里是主页</h1>
+  <h1>欢迎来到Magic box</h1>
 </template>
 
 <script setup></script>

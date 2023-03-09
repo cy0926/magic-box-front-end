@@ -4,7 +4,10 @@
       <el-icon class="mr-2"><eleme-filled /></el-icon>
       Magic box
     </span>
-    <el-icon class="icon-btn"> <Fold /></el-icon>
+    <el-icon class="icon-btn" @click="$store.commit('handleAsideWidth')">
+      <Fold v-if="$store.state.asideWidth == '250px'" />
+      <Expand v-else />
+    </el-icon>
     <el-tooltip effect="dark" content="刷新" placement="bottom">
       <el-icon class="icon-btn" @click="handleRefresh"><Refresh /></el-icon>
     </el-tooltip>
